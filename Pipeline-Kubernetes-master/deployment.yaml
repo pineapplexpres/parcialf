@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appweb1
+spec:
+  replicas: 2
+  selector:
+      matchLabels:
+        app: appweb1
+  template:
+    metadata:
+      labels:
+        app: appweb1
+    spec:
+      containers:
+      - name: appweb1
+        image: sockshead/react-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appweb2
+spec:
+  replicas: 2
+  selector:
+      matchLabels:
+        app: appweb2
+  template:
+    metadata:
+      labels:
+        app: appweb2
+    spec:
+      containers:
+      - name: appweb2
+        image: sockshead/node-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      restartPolicy: Always    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appweb
+spec:
+  replicas: 2
+  selector:
+      matchLabels:
+        app: appweb
+  template:
+    metadata:
+      labels:
+        app: appweb
+    spec:
+      containers:
+      - name: appweb
+        image: sockshead/react-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      restartPolicy: Always  
